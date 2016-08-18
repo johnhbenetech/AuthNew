@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Authenticon Prototype">
+    <meta name="author" content="Benetech Labs">
+
+	
+	<script>
+      var apiRoot = 'https://authenticon-api-qa.benetech.org';
+    </script>
+	
+    <title>Authenticon Prototype - Benetech</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Theme CSS -->
+    <link href="css/freelancer.min.css" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+	
+	<!-- Text encodings use <pre>; this style tweak makes <pre> text larger -->
+   <style>
+      pre.result {
+        font-size: 160%;        
+      }
+    </style>
+	
+</head>
+
+<body id="page-top" class="index">
+
+    <!-- Navigation -->
+    <nav id="mainNav" class="navbar navbar-default navbar-fixed-top navbar-custom">
+        <div class="container">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header page-scroll">
+				<a class="navbar-brand" href="#page-top">Authenticon</a>
+				<a class="navbar-brand" id="navsmall"  href="#page-top">Prototype</a>
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span> Menu <i class="fa fa-bars"></i>
+                </button>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="hidden">
+                        <a href="#page-top"></a>
+                    </li>
+                    <li class="page-scroll">
+                        <a href="#viz">Visualize</a>
+                    </li>
+                    <li class="page-scroll">
+                        <a href="#about">About</a>
+                    </li>
+					<li class="page-scroll">
+                        <a href="#foot">Contact</a>
+                    </li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container-fluid -->
+    </nav>
+	
+<!-- Header -->
+    
+    <header>
+		<section id="viz">
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-12">
+						<!-- <img class="img-responsive" src="img/profile.png" alt=""> -->
+						<div class="intro-text">
+							<h2>Authenticon</h2>
+							<hr class="star-light">
+						</div>
+						
+						
+						<div class="col-lg-12 text-center" id="fingerprint-entry">
+							<p class="lead">Please enter the encryption fingerprint below:</p>
+							
+							
+							
+							
+							<button id="current-encoding-name" href="#"></button> 
+								
+									<form id="fingerprintForm" autocomplete="off">
+										<div class="form-group">
+											<input type="text" class="form-control" name="fingerprint" placeholder="Fingerprint (Martus or PGP format)"></input>
+										</div>
+										<input type="submit" value="Submit" id="goBtn" class="btn btn-primary btn-lg disabled"></input>
+									</form>
+							<div class="dropdown">
+								<button href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Change <span class="caret"></span></button>
+								<ul id="methods-dropdown" class="dropdown-menu">
+
+								</ul>
+							</div>
+							
+							
+							<div class="btn-group">
+							  <button class="btn btn-secondary btn-lg dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+								Large button
+							  </button>
+							  <button type="button" class="btn btn-lg btn-secondary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+								<span class="sr-only">Toggle Dropdown</span>
+							  </button>
+							  <div class="dropdown-menu">
+								...
+							  </div>
+							</div>
+							
+							
+							
+						</div>
+
+						
+						
+					
+						
+						
+						</div>
+					</div>
+					
+					<div class="well" id="visualise-result" style="display:none">
+							<button id="resultDone" class="btn btn-lg btn-success">Done</button>
+					
+					</div>
+				
+				</div>
+			
+			
+			
+			</div>
+		</section>
+    </header>
+	
+
+    <!-- About Section -->
+    <section class="success" id="about">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <h2>About</h2>
+                    <hr class="star-primary">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-4 col-lg-offset-2">
+                    <p>Freelancer is a free bootstrap theme created by Start Bootstrap. The download includes the complete source files including HTML, CSS, and JavaScript as well as optional LESS stylesheets for easy customization.</p>
+                </div>
+                <div class="col-lg-4">
+                    <p>Whether you're a student looking to showcase your work, a professional looking to attract clients, or a graphic artist looking to share your projects, this template is the perfect starting point!</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="text-center" id="foot">
+        <div class="footer-above">
+            <div class="container">
+                <div class="row">
+                    <div class="footer-col col-md-4">
+                        <h3>An Initiative of</h3>
+						<a href="https://benetech.org"><img class="img-centered" src="img/labslogo.png" alt="Benetech Logo"></a>
+						<p>Prototype developed by <br><a href="https://www.benetech.org/our-programs/benetech-labs/">Benetech Labs</a></p>
+                        
+                    </div>
+                    <div class="footer-col col-md-4">
+                        <h3>Around the Web</h3>
+                        <ul class="list-inline">
+                            <li>
+                                <a href="https://www.facebook.com/pages/Benetech/36199212252" class="btn-social btn-outline"><i class="fa fa-fw fa-facebook"></i></a>
+                            </li>
+                            <li>
+                                <a href="https://twitter.com/benetech" class="btn-social btn-outline"><i class="fa fa-fw fa-twitter"></i></a>
+                            </li>
+                            <li>
+                                <a href="https://www.youtube.com/benetech" class="btn-social btn-outline"><i class="fa fa-fw fa-youtube"></i></a>
+                            </li>
+							<li>
+                                <a href="https://www.linkedin.com/company/benetech" class="btn-social btn-outline"><i class="fa fa-fw fa-linkedin"></i></a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="footer-col col-md-4">
+                        <h3>Supported By</h3>
+						<img class="img-centered" src="img/knight-logo-white.png" alt="Knight Logo"></a>
+                        <p>Authenticon is a project funded by the  <a href="http://www.knightfoundation.org/funding-initiatives/knight-prototype-fund/">Knight Prototype Fund</a></p>
+						
+					</div>
+                </div>
+            </div>
+        </div>
+        <div class="footer-below">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12">
+                        Copyright &copy; Benetech <script>document.write(new Date().getFullYear())</script>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scroll to Top Button (Only visible on small and extra-small screen sizes) -->
+    <div class="scroll-top page-scroll hidden-sm hidden-xs hidden-lg hidden-md">
+        <a class="btn btn-primary" href="#page-top">
+            <i class="fa fa-chevron-up"></i>
+        </a>
+    </div>
+
+    <!-- jQuery -->
+    <script src="vendor/jquery/jquery.min.js"></script>
+	<script src="vendor/jquery/jquery.validate.min.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+
+    <!-- Plugin JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
+
+    <!-- Theme JavaScript -->
+    <script src="js/freelancer.min.js"></script>
+	
+	<script>
+    var encodingMethods;
+    var currentEncodingMethod;
+
+    function initEncodingMethods(data) {
+      encodingMethods = data;
+
+      encodingMethods.forEach( function(method) {
+        $('#methods-dropdown').append('<li class="methods-dropdown-item"><a href="#">' + method.name + '</a></li>');
+      });
+
+      $('.methods-dropdown-item').click( function(element) {
+        setCurrentEncodingMethodByName(element.delegateTarget.textContent);
+      });
+
+      setCurrentEncodingMethodByName(encodingMethods[0].name);
+    }
+
+    function setCurrentEncodingMethodByName(name) {
+      encodingMethods.forEach( function(method) {
+        if (method.name == name) {
+          setCurrentEncodingMethod(method);
+          return;
+        }
+      })
+    }
+
+    function setCurrentEncodingMethod(method) {
+      currentEncodingMethod = method;
+      $('#current-encoding-name').empty().append("Encoding method: " + method.name);
+
+      if ($('#visualise-result').is(":visible"))
+        $('#visualise-result').fadeOut( { complete : function() {
+            visualiseFingerprint(document.forms[0].fingerprint.value.replace(/([^a-f0-9]+)/gi, ''));
+        }});
+    }
+
+    $(document).ready(function () {
+		$.validator.addMethod(
+		"regex",
+		function(value,element,regexp){
+		var re = new RegExp(regexp);
+		return this.optional(element) || re.test(value);
+		},
+		"Not a valid fingerprint (40 hexadecimal characters separated by dots, dashes, or spaces)"
+	);	
+	
+       $('#fingerprintForm').validate({
+            rules: {
+                fingerprint: {
+                    required: true,
+//					regex: "^([0-9a-f]{4}[\\s]?[\.\-]?[\\s]?){10}$|^([0-9a-f]{8}[\\s]?[\.\-]?[\\s]?){5}$",
+					regex: "^([0-9a-f][\\s]*[\.\-]*){40}$",
+                }          
+           },
+            submitHandler: function(form) {
+              visualiseFingerprint(form.fingerprint.value.replace(/([^a-f0-9]+)/gi, ''));
+            }          
+        });
+
+        $('#fingerprintForm input').on('keyup blur', function () {
+            if ($('#fingerprintForm').valid()) {
+                $('#goBtn').removeClass('disabled');
+            } else {
+                $('#goBtn').addClass('disabled');
+            }
+        });
+
+        $('#resultDone').click(resetFingerprintEntry);
+
+        $.ajax( {
+          url : 'https://authenticon-api-qa.benetech.org',
+          }).done(function(data) {
+            initEncodingMethods(data);
+          });
+    });
+
+    function visualiseFingerprint(fingerprint) {
+      $('.result').remove();
+      var apiUrl = apiRoot + '?method=' + encodeURIComponent(currentEncodingMethod.id) + '&fingerprint=' + fingerprint;
+      if (currentEncodingMethod.type == 'text') {
+        $('#visualise-result').prepend($('<pre>', {class: 'result', id: 'text-result'}));
+        $.ajax(apiUrl).done(function(data) { $('#text-result').append(data)});
+      } else {
+        $('#visualise-result').prepend($('<img>',{class: 'result', style: 'width:100%', src:''+apiUrl}));
+      }
+      $('#visualise-result').prepend('<p class="small result">' + fingerprint + '</p>');
+      $('#fingerprint-entry').fadeOut( { complete: function() {
+        $('#visualise-result').fadeIn();        
+      }});
+    }
+
+    function resetFingerprintEntry() {
+      $('#visualise-result').fadeOut( { complete: function() {
+        $('#fingerprint-entry').fadeIn();
+      }});
+    }
+
+    </script>
+
+</body>
+
+</html>
