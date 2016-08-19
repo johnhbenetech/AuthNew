@@ -83,46 +83,35 @@
 <!-- Header -->
 	
 	<header>
-		<section id="viz"  style="padding-top:120px; padding-bottom:100px;">
+		<section id="viz"  style="padding-bottom:50px;">
 			<div class="container">
-				<div id="fingerprint-entry">
+				<span id="fingerprint-entry" sytle="padding-top:120px;">&nbsp;</span>
 					<div class="row" style="padding-bottom:30px">
 						<div class="col-lg-12">
 							<div class="intro-text">
 								<h2>Authenticon</h2>
-								<hr class="star-light">
+								<hr  class="star-light">
 							</div>
 						</div>	
-					</div>		
-				</div>
+					</div>	
+					<div class="row" style="padding-bottom:30px">
+						<div class="col-lg-12 text-center">
+							<p class="lead">Please enter the encryption fingerprint below</p>
+						</div>
+					</div>	
 				
-				<div class="row">
-					<div class="col-lg-12 text-left">
-						<p class="lead">Please enter the encryption fingerprint below:</p>
-					</div>
-				</div>
+				
+				
 							
 				<div class="row">
 					<div class="col-lg-12">
 						<form id="fingerprintForm" autocomplete="off">
 							<div class="form-group">
-								<div class="col-md-7">
+								<div class="col-md-7 col-md-offset-1">
 									<input type="text" class="form-control input-lg" name="fingerprint" placeholder="Fingerprint (Martus or PGP format)"></input>
 								</div>
 								
-								<div class="col-md-5">
-									<!-- <div class="btn-group" role="group" aria-label="Choose Representation">
-										<div class="btn-group" role="group">
-											
-											<button type="button" class="btn btn-primary btn-lg dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-												HELP<span class="caret"></span>
-											</button>
-											<ul id="methods-dropdown" class="dropdown-menu">
-											</ul>
-											
-										</div>
-										<input type="submit" value="Submit" id="goBtn" class="btn btn-primary btn-lg disabled"></input>
-									</div> -->
+								<div class="col-md-3">
 									
 									<div class="btn-group" role="group" aria-label="Choose Representation">
 										<button id="current-encoding-name" type="button" class="btn btn-primary btn-lg">Choose Method</button>
@@ -148,8 +137,8 @@
 				
 				
 				
-				<div class="row" style="padding-top:30px;">
-					<div class="well" id="visualise-result" style="display:none;">
+				<div class="row" style="padding-top:75px;">
+					<div class="img-responsive" id="visualise-result" style="display:none;">
 						<button id="resultDone" class="btn btn-lg btn-success">Done</button>
 					</div>
 				</div>
@@ -171,28 +160,31 @@
 				</div>
 			</div>
 			<div class="row">
-				<div class="col-lg-12 text-center">
-					<p>Freelancer is a free bootstrap theme created by Start Bootstrap. The download includes the complete source files including HTML, CSS, and JavaScript as well as optional LESS stylesheets for easy customization.</p>
+				<div class="col-lg-12 text-justify">
+					<p>AuthentIcon is an open source prototype designed to improve the user experience of verifying a contact's cryptographic identity. The current standard implemented by widely-used encryption software, like <a style="text-decoration: underline; color:white" href="https://en.wikipedia.org/wiki/Pretty_Good_Privacy">PGP </a>and <a style="text-decoration: underline; color:white" href="https://en.wikipedia.org/wiki/Off-the-Record_Messaging">OTR</a>, requires users to compare long alphanumeric strings either visually or by reading aloud character-by-character. It is tedious, presents a significant barrier to verification, and often dissuades users from verifying their contacts at all, presenting serious security risks.</p>
+				</div>
+				<div class="col-lg-12 text-justify" style="padding-top:20px;">				
+					<p>This prototype hopes to begin exploring various methods that can be used to compare and authenticate cryptographic fingerprints.</p>
 				</div>
 			</div>
 
 			<div class="row">
 				<div class="col-lg-12 text-center" style="padding-top: 30px;">
-					<h2>Mode Descriptions</h2>
+					<h2>Current Methods</h2>
 				</div>
 			</div>
 			<div class="row" style="padding-top: 10px;">
-				<div class="col-md-4">
-					<h3>Supported By</h3>
-					<p>Freelancer is a free bootstrap theme created by Start Bootstrap. The download includes the complete source files including HTML, CSS, and JavaScript as well as optional LESS stylesheets for easy customization.</p>
+				<div class="col-md-4 text-justify">
+					<h3 class="text-center">14 Icons (Permanent)</h3>
+					<p style="font-size: 1.25em">Encodes fingerprints as a set of 14 icons. Icons can either be colored blue or orange, but contain unique concepts within a color. These icons should be described to the recipient using the color and a description in the users' preferred language. Each unique fingerprint will always encode to the same set of icons.</p>
 				</div>
-				<div class="col-md-4">
-					<h3>Supported By</h3>
-					<p>Whether you're a student looking to showcase your work, a professional looking to attract clients, or a graphic artist looking to share your projects, this template is the perfect starting point!</p>
+				<div class="col-md-4 text-justify">
+					<h3 class="text-center">3 Icons (Temporary)</h3>
+					<p style="font-size: 1.2em">Encodes fingerprints as a set of 3 icons. The icon set is associated with the fingerprint for a period of 24 hours. This method is useful for a real-time (or near real-time) verification, but cannot be used as a permanent representation of the fingerprint. After 24 hours, the same set of icons could be represent a different fingerprint.</p>
 				</div>
-				<div class="col-md-4">
-					<h3>Supported By</h3>
-					<p>Whether you're a student looking to showcase your work, a professional looking to attract clients, or a graphic artist looking to share your projects, this template is the perfect starting point!</p>
+				<div class="col-md-4 text-justify">
+					<h3 class="text-center">Hash Mechanism</h3>
+					<p style="font-size: 1.25em">Provides . Icons can either be colored blue or orange, and contain unique representations within a color. These icons can be described in the user's own language. Each unique fingerprint will always encode to the same icons.</p>
 				</div>
 		</div>
 	</section>
@@ -303,7 +295,9 @@
 			}});
 			}
 		else if ($('#fingerprintForm').valid()) {
-			visualiseFingerprint(document.forms[0].fingerprint.value.replace(/([^a-f0-9]+)/gi, ''));
+			$('#visualise-result').fadeOut( { complete : function() {
+				visualiseFingerprint(document.forms[0].fingerprint.value.replace(/([^a-f0-9]+)/gi, ''));
+			}});
 		}
 	}
 
@@ -334,18 +328,22 @@
 				fingerprint: {
 					required: true,
 //					regex: "^([0-9a-f]{4}[\\s]?[\.\-]?[\\s]?){10}$|^([0-9a-f]{8}[\\s]?[\.\-]?[\\s]?){5}$",
-					regex: "^([0-9a-f][\\s]*[\.\-]*){40}$",
+					regex: "^([0-9a-f][\\s]*[\:\.\-]*){40}$",
 					goodMethod: true,
 				},		
 		   },
 			submitHandler: function(form) {
-			  visualiseFingerprint(form.fingerprint.value.replace(/([^a-f0-9]+)/gi, ''));
+			  $('#visualise-result').fadeOut( { complete : function() {
+				visualiseFingerprint(document.forms[0].fingerprint.value.replace(/([^a-f0-9]+)/gi, ''));
+			}});
 			}          
 		});
 
 		$('#fingerprintForm input').on('keyup blur', function () {
 			if ($('#fingerprintForm').valid()) {
+				$('#visualise-result').fadeOut( { complete : function() {
 				visualiseFingerprint(document.forms[0].fingerprint.value.replace(/([^a-f0-9]+)/gi, ''));
+			}});
 			}
 			else {
 				resetFingerprintEntry();
@@ -362,13 +360,13 @@
 	});
 
 	function visualiseFingerprint(fingerprint) {
-	  $('.result').remove();
+	  $('#visualise-result').empty();
 	  var apiUrl = apiRoot + '?method=' + encodeURIComponent(currentEncodingMethod.id) + '&fingerprint=' + fingerprint;
 	  if (currentEncodingMethod.type == 'text') {
 		$('#visualise-result').prepend($('<pre>', {class: 'result', id: 'text-result'}));
 		$.ajax(apiUrl).done(function(data) { $('#text-result').append(data)});
 	  } else {
-		$('#visualise-result').prepend($('<img>',{class: 'result', style: 'width:80%', src:''+apiUrl}));
+		$('#visualise-result').prepend($('<img>',{class: 'img-responsive', style: 'height:80%', src:''+apiUrl}));
 	  }
 	  $('#fingerprint-entry').fadeOut( { complete: function() {
 		$('#visualise-result').fadeIn();        
