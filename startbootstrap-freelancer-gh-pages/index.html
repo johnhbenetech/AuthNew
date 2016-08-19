@@ -107,13 +107,13 @@
 					<div class="col-lg-12">
 						<form id="fingerprintForm" autocomplete="off">
 							<div class="form-group">
-								<div class="col-md-7 col-md-offset-1">
+								<div class="col-md-6 col-md-offset-1">
 									<input type="text" class="form-control input-lg" name="fingerprint" placeholder="Fingerprint (Martus or PGP format)"></input>
 								</div>
 								
-								<div class="col-md-3">
+								<div class="col-md-4">
 									
-									<div class="btn-group" role="group" aria-label="Choose Representation">
+									<div class="btn-group pull-left" role="group" aria-label="Choose Representation">
 										<button id="current-encoding-name" type="button" class="btn btn-primary btn-lg">Choose Method</button>
 										<button type="button" class="btn btn-primary btn-lg dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 											<span class="caret"></span>
@@ -308,7 +308,7 @@
 		var re = new RegExp(regexp);
 		return this.optional(element) || re.test(value);
 		},
-		"Not a valid fingerprint (40 hexadecimal characters separated by dots, dashes, or spaces)"
+		"Not a valid fingerprint (Martus, MD5, SHA-1, or SHA-256)"
 	);
 
 		$.validator.addMethod(
@@ -324,11 +324,23 @@
 	);
 	
 	   $('#fingerprintForm').validate({
+			success: function(label) {
+				if(document.forms[0].fingerprint.value.replace(/([^a-f0-9]+)/gi, '').length == 32) {
+					label.addClass("valid").text("MD5 fingerprint detected");
+				}
+				else if(document.forms[0].fingerprint.value.replace(/([^a-f0-9]+)/gi, '').length == 40) {
+					label.addClass("valid").text("SHA-1/Martus fingerprint detected");
+				}
+				else if(document.forms[0].fingerprint.value.replace(/([^a-f0-9]+)/gi, '').length == 64) {
+					label.addClass("valid").text("SHA-256 fingerprint detected");
+				}
+			},
+
 			rules: {
 				fingerprint: {
 					required: true,
 //					regex: "^([0-9a-f]{4}[\\s]?[\.\-]?[\\s]?){10}$|^([0-9a-f]{8}[\\s]?[\.\-]?[\\s]?){5}$",
-					regex: "^([0-9a-f][\\s]*[\:\.\-]*){40}$",
+					regex: "^([0-9a-f][\\s]*[\:\.\-]*){40}$|^([0-9a-f][\\s]*[\:\.\-]*){32}$|^([0-9a-f][\\s]*[\:\.\-]*){64}$",
 					goodMethod: true,
 				},		
 		   },
