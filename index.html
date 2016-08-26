@@ -11,8 +11,7 @@
 
 	
 	<script>
-	//  var apiRoot = 'https://authenticon-api-qa.benetech.org';
-	var apiRoot = 'localhost:8080';
+	  var apiRoot = 'https://authenticon-api-qa.benetech.org';
 	</script>
 	
 	<title>Authenticon Prototype - Benetech</title>
@@ -34,14 +33,6 @@
 		<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
 		<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
 	<![endif]-->
-
-	
-	<!-- Text encodings use <pre>; this style tweak makes <pre> text larger -->
-   <style>
-	  pre.result {
-		font-size: 160%;        
-	  }
-	</style>
 	
 </head>
 
@@ -176,16 +167,16 @@
 			</div>
 			<div class="row" style="padding-top: 10px;">
 				<div class="col-md-4 text-justify">
-					<h3 class="text-center">14 Icons (Permanent)</h3>
-					<p style="font-size: 1.25em">Encodes fingerprints as a set of 14 icons. Icons can either be colored blue or orange, but contain unique concepts within a color. These icons should be described to the recipient using the color and a description in the users' preferred language. Each unique fingerprint will always encode to the same set of icons.</p>
+					<h3 class="text-center">Icons (Permanent)</h3>
+					<p style="font-size: 1.25em">Encodes fingerprints as a set of icons. Icons can either be colored blue or orange, but contain unique concepts within a color. These icons should be described to the recipient using the color and a description in the users' preferred language. Each unique fingerprint will always encode to the same set of icons.</p>
 				</div>
 				<div class="col-md-4 text-justify">
 					<h3 class="text-center">3 Icons (Temporary)</h3>
 					<p style="font-size: 1.2em">Encodes fingerprints as a set of 3 icons. The icon set is associated with the fingerprint for a period of 24 hours. This method is useful for a real-time (or near real-time) verification, but cannot be used as a permanent representation of the fingerprint. After 24 hours, the same set of icons could be represent a different fingerprint.</p>
 				</div>
 				<div class="col-md-4 text-justify">
-					<h3 class="text-center">Hash Mechanism</h3>
-					<p style="font-size: 1.25em">Lorem Ipsum</p>
+					<h3 class="text-center">Audio Method</h3>
+					<p style="font-size: 1.25em">Encodes fingerprint as a permanent series of sounds. The contents and characteristics of the fingerprint are used in frequency and duration configuration. The resulting pattern can be useful as a non-visual representation of the key.</p>
 				</div>
 		</div>
 	</section>
@@ -254,25 +245,66 @@
 
 	<!-- Plugin JavaScript -->
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
-
+	<script src="vendor/jsfx/jsfx.js"></script>
 	<!-- Theme JavaScript -->
 	<script src="js/freelancer.min.js"></script>
 	
 	<script>
-	var jump = 3;
-	var scale = "1234567890abcdef";
-	function play(){
-		(function theLoop (i) {
-		setTimeout(function () {
-		var freq = (mult) * Math.pow(2, scale.indexOf(fingerprint[i-1])/16);
-		var params = MergeParams(base, { "Frequency": {"Start": freq},Vibrato: {Depth: scale.indexOf(fingerprint[i-2]) / 16,
-			Frequency: scale.indexOf(fingerprint[i-3]) * 10 + 5}});
-			live._play(params);
-		if (--i) {          // If i > 0, keep going
-		  theLoop(i);       // Call the loop again, and pass it the current value of i
+		var modules = [
+			jsfx.Module.Frequency,
+			jsfx.Module.Vibrato,
+			jsfx.Module.Guitar,
+			jsfx.Module.Volume
+		];
+
+		var base = function(){
+			return {
+				Frequency: { Slide: (Math.random() - 0.5)/5 },
+				Volume: { Master: 1, Attack: 0, Punch: 1, Release: 1, Decay: 3 }
+			};
+		};
+
+		var live = jsfx.Live({}, modules);
+
+		function MergeParams(base, override){
+			if(typeof base === 'function'){
+				base = base();
+			} else {
+				base = JSON.parse(JSON.stringify(base));
+			}
+
+			if(typeof override === 'function'){
+				override = override();
+			}
+
+			for(var name in override){
+				if(typeof base[name] === 'undefined'){
+					base[name] = {};
+				}
+				for(var param in override[name]){
+					base[name][param] = override[name][param];
+				}
+			}
+
+			return base;
 		}
-		}, 100);
-		})(fingerprint.length/jump);}
+
+
+		function play(fingerprint,mult){
+			var jump = 3;
+			var scale = "1234567890ABCDEF";
+			(function theLoop (i) {
+			setTimeout(function () {
+			var freq = (mult) * Math.pow(2, scale.indexOf(fingerprint[i-1])/16);
+			var params = MergeParams(base, { "Frequency": {"Start": freq},Vibrato: {Depth: scale.indexOf(fingerprint[i-2]) / 16,
+				Frequency: scale.indexOf(fingerprint[i-3]) * 10 + 5}});
+				live._play(params);
+			if (--i) {          // If i > 0, keep going
+			  theLoop(i);       // Call the loop again, and pass it the current value of i
+			}
+			}, 100);
+			})(fingerprint.length/jump);
+		}
 
 	</script>
 	
@@ -321,6 +353,7 @@
 	}
 
 	$(document).ready(function () {
+		
 		$.validator.addMethod(
 		"regex",
 		function(value,element,regexp){
@@ -329,6 +362,7 @@
 		},
 		"Not a valid fingerprint (Martus, MD5, SHA-1, or SHA-256)"
 	);
+	
 
 		$.validator.addMethod(
 		"goodMethod",
@@ -354,7 +388,9 @@
 					label.addClass("valid").text("SHA-256 fingerprint detected");
 				}
 			},
-
+			invalidHandler: function() {
+				resetFingerprintEntry();
+			},
 			rules: {
 				fingerprint: {
 					required: true,
@@ -369,14 +405,15 @@
 			}});
 			}          
 		});
-
+		
+		
 		$('#fingerprintForm input').on('keyup blur', function () {
 			if ($('#fingerprintForm').valid()) {
 				$('#visualise-result').fadeOut( { complete : function() {
 				visualiseFingerprint(document.forms[0].fingerprint.value.replace(/([^a-f0-9]+)/gi, ''));
+			
 			}});
-			}
-			else {
+			}else {
 				resetFingerprintEntry();
 			}
 		});
@@ -388,16 +425,18 @@
 		  }).done(function(data) {
 			initEncodingMethods(data);
 		  });
-	});
+	}); 
 
 	function visualiseFingerprint(fingerprint) {
 	  $('#visualise-result').empty();
 	  var apiUrl = apiRoot + '?method=' + encodeURIComponent(currentEncodingMethod.id) + '&fingerprint=' + fingerprint;
 	  if (currentEncodingMethod.type == 'text') {
 		$('#visualise-result').prepend($('<pre>', {class: 'result', id: 'text-result'}));
-		$.ajax(apiUrl).done(function(data) { $('#text-result').append(data)});
+		$.ajax(apiUrl).done(function(data) { $('#text-result').prepend(data)});
+	  } else if(currentEncodingMethod.type == 'audio'){
+			$.ajax(apiUrl).done(function(data) { $('#visualise-result').html(data)});
 	  } else {
-		$('#visualise-result').prepend($('<img>',{class: 'img-responsive', style: 'height:80%', src:''+apiUrl}));
+		$('#visualise-result').prepend($('<img>',{class: 'img-responsive', src:''+apiUrl}));
 	  }
 	  $('#fingerprint-entry').fadeOut( { complete: function() {
 		$('#visualise-result').fadeIn();        
