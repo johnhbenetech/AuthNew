@@ -16,8 +16,8 @@ var modules = [
 
 var base = function(){
 	return {
-		Frequency: {},
-		Volume: {Master:1,Attack:0.021,Sustain:0.35,Punch:1.04,Decay:0.951}
+		Frequency: { Slide: (Math.random() - 0.5)/5 },
+		Volume: { Master: 1, Attack: 0, Punch: 1, Release: 1, Decay: 3 }
 	};
 };
 
@@ -56,18 +56,19 @@ function MergeParams(base, override){
 <b>Note this is broken on Chrome ATM.</b>
 <button onclick="play()">Static</button>
 <script>
-var scale = "1234567890abcdef";
-var fingerprint = "0a876ba826fbe876b836bd786ba876232";
-var tot = md5(fingerprint);
-var tot2 = "ffffffffffffffffffffffffffffffff";
-var tot3 = (parseInt(tot,16)/parseInt(tot2,16))*1000;
+
+var fingerprint = "0a276ba826f1e896b866bd786bf176132";
+var mult = "";
+
+
 var jump = 3;
+var scale = "1234567890abcdef";
 function play(){
 	(function theLoop (i) {
 	setTimeout(function () {
-    var freq = (tot3*(1+(parseInt(fingerprint[(i*jump)-2],16)))) * Math.pow(2, scale.indexOf(fingerprint[i-1])/16);
-	var freq2 = scale.indexOf(fingerprint[i-1])-15/15;
-	var params = MergeParams(base, { "Frequency": {"Start": freq, "DeltaSlide": freq2}});
+    var freq = (mult) * Math.pow(2, scale.indexOf(fingerprint[i-1])/16);
+	var params = MergeParams(base, { "Frequency": {"Start": freq},Vibrato: {Depth: scale.indexOf(fingerprint[i-2]) / 16,
+		Frequency: scale.indexOf(fingerprint[i-3]) * 10 + 5}});
 		live._play(params);
     if (--i) {          // If i > 0, keep going
       theLoop(i);       // Call the loop again, and pass it the current value of i

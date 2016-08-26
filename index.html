@@ -11,7 +11,8 @@
 
 	
 	<script>
-	  var apiRoot = 'https://authenticon-api-qa.benetech.org';
+	//  var apiRoot = 'https://authenticon-api-qa.benetech.org';
+	var apiRoot = 'localhost:8080';
 	</script>
 	
 	<title>Authenticon Prototype - Benetech</title>
@@ -256,7 +257,24 @@
 
 	<!-- Theme JavaScript -->
 	<script src="js/freelancer.min.js"></script>
-	<script src="js/flocking-no-jquery.min.js"></script>
+	
+	<script>
+	var jump = 3;
+	var scale = "1234567890abcdef";
+	function play(){
+		(function theLoop (i) {
+		setTimeout(function () {
+		var freq = (mult) * Math.pow(2, scale.indexOf(fingerprint[i-1])/16);
+		var params = MergeParams(base, { "Frequency": {"Start": freq},Vibrato: {Depth: scale.indexOf(fingerprint[i-2]) / 16,
+			Frequency: scale.indexOf(fingerprint[i-3]) * 10 + 5}});
+			live._play(params);
+		if (--i) {          // If i > 0, keep going
+		  theLoop(i);       // Call the loop again, and pass it the current value of i
+		}
+		}, 100);
+		})(fingerprint.length/jump);}
+
+	</script>
 	
 	<script>
 	var encodingMethods;
