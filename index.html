@@ -256,6 +256,7 @@
 
 	<!-- Theme JavaScript -->
 	<script src="js/freelancer.min.js"></script>
+	<script src="js/flocking-no-jquery.min.js"></script>
 	
 	<script>
 	var encodingMethods;
@@ -340,7 +341,7 @@
 				fingerprint: {
 					required: true,
 //					regex: "^([0-9a-f]{4}[\\s]?[\.\-]?[\\s]?){10}$|^([0-9a-f]{8}[\\s]?[\.\-]?[\\s]?){5}$",
-					regex: "^([0-9a-f][\\s]*[\:\.\-]*){40}$|^([0-9a-f][\\s]*[\:\.\-]*){32}$|^([0-9a-f][\\s]*[\:\.\-]*){64}$",
+					regex: "^([0-9a-fA-F][\\s]*[\:\.\-]*){40}$|^([0-9a-fA-F][\\s]*[\:\.\-]*){32}$|^([0-9a-fA-F][\\s]*[\:\.\-]*){64}$",
 					goodMethod: true,
 				},		
 		   },
